@@ -13,10 +13,14 @@
 
             <div id="projects" class="sub-container">
                 <h1>Projects</h1>
-                <div id="proj-engine">
-                    <div class="content-frame">
-                        <img class="contents" src="little-engine-img.png">
-                        <div class="overlap-blur contents" onclick="loadScript('test.js')"></div>
+                <div>
+                    <!-- Little Engine project -->
+                    <div class="content-frame" id="little-engine-frame">
+                        <canvas class="contents"></canvas>
+                        <div class="overlay">
+                            <div class="spinner invisible"></div>
+                            <p class="overlay-text invisible">Click to load</p>
+                        </div>
                     </div>
                 </div>
             </div>
