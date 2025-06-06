@@ -161,6 +161,26 @@ canvas.emscripten { border: 0px none; background-color: black;
       }, false);
 
       var Module = {
+        ///////// Calling C++ code here
+        //
+        onRuntimeInitialized: function() {
+          Module.ccall('remove_focus', 'void', []);
+
+          window.addEventListener('keydown', function(evt) {
+              console.log("msg");
+              evt = evt || window.event;
+              var isEscape = false;
+              if ("key" in evt) {
+                  isEscape = (evt.key === "Escape" || evt.key === "Esc");
+              } else {
+                  isEscape = (evt.keyCode === 27);
+              }
+              
+              if (isEscape) {
+                  console.log("Escape pressed");
+              }
+          }, true);
+        },
         print(...args) {
           console.log(...args);
           // These replacements are necessary if you render to raw HTML
