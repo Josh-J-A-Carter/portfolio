@@ -11,13 +11,13 @@ requirejs.config({
     }
 });
 
-// window.createLittleEngine = { canvas: document.querySelector("#canvas") };
-
 // Start the main app logic.
 requirejs(['little-engine'],
 function (engine) {
-    console.log("pls work");
-    console.log(document.querySelector("#little-engine-frame canvas"));
-    var test = engine({ canvas: document.querySelector("#little-engine-frame canvas") });
-    console.log("here");
+    var container = document.querySelector("#little-engine-frame");
+    container.style.height = (container.clientWidth * 9 / 16) + "px";
+    var canvas = document.querySelector("#little-engine-frame canvas");
+    var littleEngine = engine({ canvas: canvas });
+    canvas.style.width = container.clientWidth + "px";
+    canvas.style.height = container.clientHeight + "px";
 });
