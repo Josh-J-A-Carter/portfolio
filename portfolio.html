@@ -2,7 +2,7 @@
 <html lang="en-us">
     <head>
         <title>Portfolio</title>
-        <link rel="stylesheet" href="styles.css">
+        <!-- <link rel="stylesheet" href="styles.css"> -->
     </head>
     <body>
         <div id="contents">
@@ -16,9 +16,11 @@
                 <div>
                     <!-- Little Engine project -->
                     <div class="content-frame" id="little-engine-frame">
-                        <canvas class="contents"></canvas>
+                        <div class="emscripten_border">
+                            <canvas class="contents"></canvas>
+                        </div>
                         <div class="overlay">
-                            <div class="spinner invisible"></div>
+                            <div class="spinner invisible emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></div>
                             <p class="overlay-text invisible">Click to load</p>
                         </div>
                     </div>
@@ -36,7 +38,7 @@
 
         </div>
     </body>
-    <script src="ui-logic.js"></script>
+    <script data-main="app.js" src="require.js"></script>
 </html>
 
 
