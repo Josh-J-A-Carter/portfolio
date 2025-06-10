@@ -30,65 +30,48 @@ function hideOverlay(frame) {
 // Function to load a JS file
 async function loadScript(frame, url) {
     return await new Promise((resolve, reject) => {
-
         frame.onmouseover = () => {};
         frame.onmouseout = () => {};
         frame.onclick = () => {};
 
-        frame.querySelector(".overlay-text").classList.add("invisible");
-        frame.querySelector(".overlay").classList.remove("pointer");
-        frame.querySelector(".spinner").classList.remove("invisible");
+        console.log("initialised");
+        // Module.ccall('remove_focus', 'void', []);
 
-        var canvasElement = frame.querySelector('canvas');
-
-        canvasElement.addEventListener('webglcontextlost', (e) => {
-            alert('WebGL context lost. You will need to reload the page.');
-            e.preventDefault();
-        }, false);
-
-        var Module = {
-            ///////// Calling C++ code here
-            onRuntimeInitialized: function() {
-                console.log("initialised");
-                Module.ccall('remove_focus', 'void', []);
-
-                window.addEventListener('keydown', function(evt) {
-                    console.log("msg");
-                    evt = evt || window.event;
-                    var isEscape = false;
-                    if ("key" in evt) {
-                        isEscape = (evt.key === "Escape" || evt.key === "Esc");
-                    } else {
-                        isEscape = (evt.keyCode === 27);
-                    }
-                    
-                    if (isEscape) {
-                        console.log("Escape pressed");
-                    }
-                }, true);
-
-                frame.querySelector(".overlay").remove();
-            },
-
-            print(...args) {
-                console.log(...args);
-                if (outputElement) {
-                    var text = args.join(' ');
-                    outputElement.value += text + "\n";
-                    outputElement.scrollTop = outputElement.scrollHeight; // focus on bottom
-                }
-            },
-            canvas: canvasElement,
-            totalDependencies: 0,
-            monitorRunDependencies(left) {
-            this.totalDependencies = Math.max(this.totalDependencies, left);
-            }
-        };
-
+        // window.addEventListener('keydown', function(evt) {
+        //     console.log("msg");
+        //     evt = evt || window.event;
+        //     var isEscape = false;
+        //     if ("key" in evt) {
+        //         isEscape = (evt.key === "Escape" || evt.key === "Esc");
+        //     } else {
+        //         isEscape = (evt.keyCode === 27);
+        //     }
+            
+        //     if (isEscape) {
+        //         console.log("Escape pressed");
+        //     }
+        // });
         const script = document.createElement('script');
         script.src = url;
         script.addEventListener('load', () => resolve());
         script.addEventListener('error', () => reject());
         document.body.appendChild(script);
-    });
+
+        requirejs(['little-engine'],
+        function (engine) {
+            var container = document.querySelector("#little-engine-frame");
+            container.style.height = (container.clientWidth * 9 / 16) + "px";
+            var canvas = document.querySelector("#little-engine-frame canvas");
+            var littleEngine = engine({ canvas: canvas });
+            canvas.style.width = container.clientWidth + "px";
+            canvas.style.height = container.clientHeight + "px";
+        });
+    })
+}
+
+function resizeCanvas(frame) {
+    frame.style.height = (frame.clientWidth * 9 / 16) + "px";
+    var canvas = frame.querySelector("canvas");
+    canvas.style.width = frame.clientWidth + "px";
+    canvas.style.height = frame.clientHeight + "px";
 }
