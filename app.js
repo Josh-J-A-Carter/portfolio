@@ -1,34 +1,11 @@
-requirejs.config({
-    //By default load any module IDs from js/lib
-    baseUrl: '',
-    //except, if the module ID starts with "app",
-    //load it from the js/app directory. paths
-    //config is relative to the baseUrl, and
-    //never includes a ".js" extension since
-    //the paths config could be for a directory.
-    paths: {
-        app: '../app'
-    }
-});
 
-var littleEngine;
-
-// Start the main app logic.
-requirejs(['little-engine'],
-function (engine) {
-    // engine({ canvas: document.querySelector("#canvas") })
-    littleEngine = engine;
-    setupFrame(document.getElementById("little-engine-frame"), engine, 'little-engine-img.png');
-});
+setupFrame(document.getElementById("little-engine-frame"), './little-engine.js', 'little-engine-img.png');
 
 
-
-
-function setupFrame(frame, factory, png) {
+function setupFrame(frame, file, png) {
     frame.onmouseover = () => showOverlay(frame);
     frame.onmouseout = () => hideOverlay(frame);
-
-    frame.querySelector(".overlay").onclick = () => instantiate(frame, factory);
+    frame.onclick = () => instantiate(frame, file);
 
     resizeCanvas(frame);
 }
@@ -45,16 +22,24 @@ function hideOverlay(frame) {
     frame.querySelector(".overlay").classList.remove("pointer");
 }
 
-// Function to load a JS file
-function instantiate(frame, factory) {
-    frame.onmouseover = () => {};
-    frame.onmouseout = () => {};
+function instantiate(frame, file) {
+    frame.onmouseover = null;
+    frame.onmouseout = null;
+    frame.onclick = null;
 
-    frame.querySelector(".overlay").remove();
-    
-    var canvas = frame.querySelector("canvas");
-    factory({ canvas: canvas });
-    resizeCanvas(frame);
+    frame.querySelector(".overlay-text").classList.add("invisible");
+    frame.querySelector(".spinner").classList.remove("invisible");
+
+    import(file).then(module => {
+        var c = frame.querySelector("canvas");
+        module.default({ canvas: c, focusin: c, focusout: c }).then(engine => {
+            resizeCanvas(frame);
+            frame.querySelector(".overlay").remove();
+
+            // Weird stuff with focus; don't know how to fix atm :(
+            // engine.ccall('remove_focus', 'void', []);
+        });
+    });
 }
 
 function resizeCanvas(frame) {

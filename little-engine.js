@@ -1,6 +1,6 @@
 var createLittleEngine = (() => {
-  var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;
-  if (typeof __filename != 'undefined') _scriptName = _scriptName || __filename;
+  var _scriptName = import.meta.url;
+  
   return (
 async function(moduleArg = {}) {
   var moduleRtn;
@@ -40,12 +40,17 @@ var ENVIRONMENT_IS_NODE = typeof process == 'object' && typeof process.versions 
 var ENVIRONMENT_IS_SHELL = !ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_NODE && !ENVIRONMENT_IS_WORKER;
 
 if (ENVIRONMENT_IS_NODE) {
+  // When building an ES module `require` is not normally available.
+  // We need to use `createRequire()` to construct the require()` function.
+  const { createRequire } = await import('module');
+  /** @suppress{duplicate} */
+  var require = createRequire(import.meta.url);
 
 }
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\Joshua\AppData\Local\Temp\tmp03nnrwix.js
+// include: C:\Users\Joshua\AppData\Local\Temp\tmplxzbcez4.js
 
   Module['expectedDataFileDownloads'] ??= 0;
   Module['expectedDataFileDownloads']++;
@@ -229,21 +234,21 @@ Module['FS_createPath']("/", "shaders", true, true);
 
   })();
 
-// end include: C:\Users\Joshua\AppData\Local\Temp\tmp03nnrwix.js
-// include: C:\Users\Joshua\AppData\Local\Temp\tmpovc5q8cw.js
+// end include: C:\Users\Joshua\AppData\Local\Temp\tmplxzbcez4.js
+// include: C:\Users\Joshua\AppData\Local\Temp\tmpzok6k07c.js
 
     // All the pre-js content up to here must remain later on, we need to run
     // it.
     if (Module['$ww'] || (typeof ENVIRONMENT_IS_PTHREAD != 'undefined' && ENVIRONMENT_IS_PTHREAD)) Module['preRun'] = [];
     var necessaryPreJSTasks = Module['preRun'].slice();
-  // end include: C:\Users\Joshua\AppData\Local\Temp\tmpovc5q8cw.js
-// include: C:\Users\Joshua\AppData\Local\Temp\tmpcnzokneu.js
+  // end include: C:\Users\Joshua\AppData\Local\Temp\tmpzok6k07c.js
+// include: C:\Users\Joshua\AppData\Local\Temp\tmpryx8ugej.js
 
     if (!Module['preRun']) throw 'Module.preRun should exist because file support used it; did a pre-js delete it?';
     necessaryPreJSTasks.forEach((task) => {
       if (Module['preRun'].indexOf(task) < 0) throw 'All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?';
     });
-  // end include: C:\Users\Joshua\AppData\Local\Temp\tmpcnzokneu.js
+  // end include: C:\Users\Joshua\AppData\Local\Temp\tmpryx8ugej.js
 
 
 // Sometimes an existing Module object exists with properties
@@ -287,7 +292,12 @@ if (ENVIRONMENT_IS_NODE) {
   var fs = require('fs');
   var nodePath = require('path');
 
-  scriptDirectory = __dirname + '/';
+  // EXPORT_ES6 + ENVIRONMENT_IS_NODE always requires use of import.meta.url,
+  // since there's no way getting the current absolute path of the module when
+  // support for that is not available.
+  if (!import.meta.url.startsWith('data:')) {
+    scriptDirectory = nodePath.dirname(require('url').fileURLToPath(import.meta.url)) + '/';
+  }
 
 // include: node_shell_read.js
 readBinary = (filename) => {
@@ -634,13 +644,15 @@ function isExportedByForceFilesystem(name) {
  * their build, or no symbols that no longer exist.
  */
 function hookGlobalSymbolAccess(sym, func) {
-  // In MODULARIZE mode the generated code runs inside a function scope and not
-  // the global scope, and JavaScript does not provide access to function scopes
-  // so we cannot dynamically modify the scrope using `defineProperty` in this
-  // case.
-  //
-  // In this mode we simply ignore requests for `hookGlobalSymbolAccess`. Since
-  // this is a debug-only feature, skipping it is not major issue.
+  if (typeof globalThis != 'undefined' && !Object.getOwnPropertyDescriptor(globalThis, sym)) {
+    Object.defineProperty(globalThis, sym, {
+      configurable: true,
+      get() {
+        func();
+        return undefined;
+      }
+    });
+  }
 }
 
 function missingGlobal(sym, msg) {
@@ -895,7 +907,11 @@ function createExportWrapper(name, nargs) {
 
 var wasmBinaryFile;
 function findWasmBinary() {
+  if (Module['locateFile']) {
     return locateFile('little-engine.wasm');
+  }
+  // Use bundler-friendly `new URL(..., import.meta.url)` pattern; works in browsers too.
+  return new URL('little-engine.wasm', import.meta.url).href;
 }
 
 function getBinarySync(file) {
@@ -12174,10 +12190,4 @@ for (const prop of Object.keys(Module)) {
     return real_createLittleEngine(arg);
   }
 })();
-if (typeof exports === 'object' && typeof module === 'object') {
-  module.exports = createLittleEngine;
-  // This default export looks redundant, but it allows TS to import this
-  // commonjs style module.
-  module.exports.default = createLittleEngine;
-} else if (typeof define === 'function' && define['amd'])
-  define([], () => createLittleEngine);
+export default createLittleEngine;
