@@ -7,6 +7,11 @@ body {
     background-color: var(--bg-color);
 }
 
+.preload * {
+    animation-duration: 0s !important;
+    transition: background-color 0s, opacity 0s, color 0s, width 0s, height 0s, padding 0s, margin 0s !important;
+}
+
 #contents {
     background-color: aliceblue;
     position: absolute;
@@ -28,6 +33,7 @@ body {
     height: auto;
     display: flex;
     flex-direction: column;
+    gap: 60px;
 }
 
 h1 {
@@ -46,9 +52,16 @@ h1 {
 .contents {
     left: 0;
     top: 0;
-    position: absolute;
     width: 100%;
     height: 100%;
+}
+
+canvas.contents {
+    position: absolute;
+}
+
+img.contents {
+    position: relative;
     box-shadow: 0 2px 5px black;
 }
 
@@ -81,12 +94,7 @@ h1 {
     color: white;
     font-weight: bold;
     font-size: 1.5em;
-    animation: fade 0.3s ease-in-out;
-}
-
-@keyframes fade {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    animation: fade-in 0.3s ease-in-out;
 }
 
 .spinner {
@@ -94,7 +102,7 @@ h1 {
     height: 50px;
     width: 50px;
 
-    animation: rotation 1s linear infinite;
+    animation: rotation 1s linear infinite, fade-in 0.3s ease-in-out;
 
     border-left: 15px solid rgb(235, 235, 235);
     border-right: 15px solid rgb(235, 235, 235);
@@ -110,5 +118,17 @@ h1 {
 }
 
 .invisible {
-    display: none;
+    opacity: 0;
+    animation: fade-out 0.15s ease-in-out;
+}
+
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }

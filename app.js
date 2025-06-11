@@ -1,11 +1,16 @@
 
-setupFrame(document.getElementById("little-engine-frame"), './little-engine.js', 'little-engine-img.png');
+// The 'preload' class is used to stop animations from running on page load
+setTimeout(() => document.body.classList.remove('preload'), 500);
+
+setupFrame(document.getElementById("chronodrive-frame"), 'chronodrive', 'Build.loader.js', unity = true);
+setupFrame(document.getElementById("little-engine-frame"), 'engine', 'little-engine.js');
 
 
-function setupFrame(frame, file, png) {
+
+function setupFrame(frame, folder, file, unity = false) {
     frame.onmouseover = () => showOverlay(frame);
     frame.onmouseout = () => hideOverlay(frame);
-    frame.onclick = () => instantiate(frame, file);
+    frame.onclick = () => instantiate(frame, folder, file, unity);
 
     resizeCanvas(frame);
 }
@@ -22,7 +27,7 @@ function hideOverlay(frame) {
     frame.querySelector(".overlay").classList.remove("pointer");
 }
 
-function instantiate(frame, file) {
+function instantiate(frame, folder, file, unity) {
     frame.onmouseover = null;
     frame.onmouseout = null;
     frame.onclick = null;
@@ -30,21 +35,64 @@ function instantiate(frame, file) {
     frame.querySelector(".overlay-text").classList.add("invisible");
     frame.querySelector(".spinner").classList.remove("invisible");
 
-    import(file).then(module => {
-        var c = frame.querySelector("canvas");
-        module.default({ canvas: c, focusin: c, focusout: c }).then(engine => {
-            resizeCanvas(frame);
-            frame.querySelector(".overlay").remove();
+    if (unity == false) {
+        import(`./${folder}/${file}`).then(module => {
+            var canvas = frame.querySelector("canvas");
+            var locateFile = (path, prefix) => {
+                console.log(prefix, path);
+                return `./${folder}/${path}`;
+            }
 
-            // Weird stuff with focus; don't know how to fix atm :(
-            // engine.ccall('remove_focus', 'void', []);
+            module.default({ canvas: canvas, locateFile: locateFile }).then(engine => {
+                resizeCanvas(frame);
+                frame.querySelector(".overlay").remove();
+    
+                // Weird stuff with focus; don't know how to fix atm :(
+                // engine.ccall('remove_focus', 'void', []);
+            });
         });
-    });
+    }
+
+    else {
+        var buildUrl = folder;
+        var loaderUrl = buildUrl + "/Build.loader.js";
+        var config = {
+            dataUrl: buildUrl + "/Build.data.unityweb",
+            frameworkUrl: buildUrl + "/Build.framework.js.unityweb",
+            codeUrl: buildUrl + "/Build.wasm.unityweb",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "Chronodrive",
+            productName: "Chronodrive",
+            productVersion: "1.0",
+        };
+
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+            createUnityInstance(canvas, config, (progress) => {
+            // progressBarFull.style.width = 100 * progress + "%";
+                }).then((unityInstance) => {
+                    // loadingBar.style.display = "none";
+                    // fullscreenButton.onclick = () => {
+                    // unityInstance.SetFullscreen(1);
+                    // };
+                    resizeCanvas(frame);
+                    frame.querySelector(".overlay").remove();
+                }).catch((message) => {
+                    alert(message);
+                });
+                };
+
+        document.body.appendChild(script);
+    }
 }
 
 function resizeCanvas(frame) {
-    frame.style.height = (frame.clientWidth * 9 / 16) + "px";
+    frame.offsetHeight = (frame.offsetWidth * 9 / 16) + "px";
     var canvas = frame.querySelector("canvas");
-    canvas.style.width = frame.clientWidth + "px";
-    canvas.style.height = frame.clientHeight + "px";
+    canvas.offsetWidth = frame.offsetWidth + "px";
+    canvas.offsetHeight = frame.offsetHeight + "px";
+
+    canvas.width = frame.offsetWidth;
+    canvas.height = frame.offsetHeight;
 }

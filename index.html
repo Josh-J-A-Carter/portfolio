@@ -4,7 +4,7 @@
         <title>Portfolio</title>
         <link rel="stylesheet" href="styles.css">
     </head>
-    <body>
+    <body class="preload">
         <div id="contents">
             
             <div id="blurb" class="sub-container">
@@ -13,8 +13,20 @@
 
             <div id="projects" class="sub-container">
                 <h1>Projects</h1>
-                <div>
-                    <!-- Little Engine project -->
+                <!-- Chronodrive project -->
+                <div class="project-container">
+                    <div class="content-frame" id="chronodrive-frame">
+                        <img class="contents" src="./little-engine-img.png">
+                        <canvas class="contents" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+                        <div class="overlay">
+                            <div class="spinner invisible"></div>
+                            <p class="overlay-text invisible">Click to load</p>
+                        </div>
+                    </div>
+                </div> 
+
+                <!-- Little Engine project -->
+                <div class="project-container">
                     <div class="content-frame" id="little-engine-frame">
                         <img class="contents" src="./little-engine-img.png">
                         <canvas class="contents" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
