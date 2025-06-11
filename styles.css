@@ -14,11 +14,9 @@ body {
 
 #contents {
     background-color: aliceblue;
-    position: absolute;
-    left: 5%;
-    right: 5%;
-    top: 0;
-    bottom: 0;
+    margin-left: 5%;
+    margin-right: 5%;
+    height: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;

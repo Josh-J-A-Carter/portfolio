@@ -66,15 +66,13 @@ function instantiate(frame, folder, file, unity) {
             productVersion: "1.0",
         };
 
+        var canvas = frame.querySelector("canvas");
         var script = document.createElement("script");
         script.src = loaderUrl;
         script.onload = () => {
-            createUnityInstance(canvas, config, (progress) => {
-            // progressBarFull.style.width = 100 * progress + "%";
-                }).then((unityInstance) => {
-                    // loadingBar.style.display = "none";
+            createUnityInstance(canvas, config, _ => {}).then((unityInstance) => {
                     // fullscreenButton.onclick = () => {
-                    // unityInstance.SetFullscreen(1);
+                    //      unityInstance.SetFullscreen(1);
                     // };
                     resizeCanvas(frame);
                     frame.querySelector(".overlay").remove();
