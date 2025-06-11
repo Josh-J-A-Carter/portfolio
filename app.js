@@ -4,7 +4,7 @@ setTimeout(() => document.body.classList.remove('preload'), 500);
 
 setupFrame(document.getElementById("chronodrive-frame"), 'chronodrive', 'Build.loader.js', unity = true);
 setupFrame(document.getElementById("little-engine-frame"), 'engine', 'little-engine.js');
-
+resizeCanvas(document.getElementById("veracity-frame"));
 
 
 function setupFrame(frame, folder, file, unity = false) {
