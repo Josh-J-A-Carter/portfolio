@@ -79,7 +79,7 @@ function instantiate(frame, folder, file, unity) {
                 }).catch((message) => {
                     alert(message);
                 });
-                };
+            };
 
         document.body.appendChild(script);
     }

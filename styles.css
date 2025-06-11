@@ -1,10 +1,19 @@
 :root {
-    --bg-color: white;
+    --color1: white;
+    --color2: rgb(41, 41, 41);
+
+    --bg-color1: var(--color1);
+    --bg-color2: var(--color2);
+
+    --text-color1: var(--color2);
+    --text-color2: var(--color1);
+
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 body {
     height: 100%;
-    background-color: var(--bg-color);
+    margin: 0;
 }
 
 .preload * {
@@ -13,38 +22,74 @@ body {
 }
 
 #contents {
-    background-color: aliceblue;
-    margin-left: 5%;
-    margin-right: 5%;
     height: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    padding: 10px;
     gap: 20px;
 }
 
 .sub-container {
-    background-color: red;
-    padding: 20px;
+    padding: 40px;
+    padding-bottom: 80px;
     width: auto;
     height: auto;
     display: flex;
     flex-direction: column;
-    gap: 60px;
+    gap: 80px;
+}
+
+.sc1 {
+    background-color: var(--bg-color1);
+    color: var(--text-color1);
+}
+
+.sc2 {
+    background-color: var(--bg-color2);
+    color: var(--text-color2);
+}
+
+.project-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
 }
 
 h1 {
-    display: block;
-    width: 100%;
-    left: 0;
-    right: 0;
+    text-align: center;
+    font-size: 3em;
+}
+
+h2 {
+    font-size: 1.9em;
+    text-align: left;
+}
+
+p {
+    font-size: 1.3em;
+}
+
+.sc1 a {
+    color: var(--text-color1);
+}
+
+.sc2 a {
+    color: var(--text-color2);
 }
 
 .content-frame {
     float: right;
-    width: 60%;
+    min-width: 60%;
+    max-width: 60%;
     position: relative;
+    margin-left: 50px;
+}
+
+.content-frame.left {
+    float: left;
+    margin-left: 0px;
+    margin-right: 50px;
 }
 
 .contents {
@@ -91,7 +136,7 @@ img.contents {
     position: absolute;
     color: white;
     font-weight: bold;
-    font-size: 1.5em;
+    font-size: 2em;
     animation: fade-in 0.3s ease-in-out;
 }
 

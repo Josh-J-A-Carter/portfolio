@@ -1,22 +1,37 @@
 <!doctype html>
 <html lang="en-us">
     <head>
-        <title>Portfolio</title>
+        <title>Josh Carter</title>
         <link rel="stylesheet" href="styles.css">
     </head>
     <body class="preload">
         <div id="contents">
             
-            <div id="blurb" class="sub-container">
+            <div id="blurb" class="sub-container sc1">
                 <h1>About me</h1>
             </div>
 
-            <div id="projects" class="sub-container">
+            <div id="projects" class="sub-container sc2">
                 <h1>Projects</h1>
                 <!-- Chronodrive project -->
                 <div class="project-container">
+                    <div>
+                        <h2>Chronodrive Video Game</h2>
+                        <p>
+                            This project was nominated for the Student's Slice category at
+                            <a href="https://nzgamesfest.com/the-pavs/">The Pavs</a>, for the 2025 ceremony.
+                        </p>
+                        <p>
+                            Chronodrive is a pretty conventional, story-driven 2D platformer.
+                            I worked on it for around 2 months, as part of the COSC360 course at Otago University.
+                        </p>
+                        <p>
+                            Through this project, I consolidated my skills with Unity 2D; particularly with C# and HLSL. I also
+                            learned quite a bit about pixel art, level design, and general project management.
+                        </p>
+                    </div>
                     <div class="content-frame" id="chronodrive-frame">
-                        <img class="contents" src="./little-engine-img.png">
+                        <img class="contents" src="./chronodrive/chronodrive-img.png">
                         <canvas class="contents" id="unity-canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
                         <div class="overlay">
                             <div class="spinner invisible"></div>
@@ -27,20 +42,34 @@
 
                 <!-- Little Engine project -->
                 <div class="project-container">
-                    <div class="content-frame" id="little-engine-frame">
-                        <img class="contents" src="./little-engine-img.png">
+                    <div class="content-frame left" id="little-engine-frame">
+                        <img class="contents" src="./engine/little-engine-img.png">
                         <canvas class="contents" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
                         <div class="overlay">
                             <div class="spinner invisible"></div>
                             <p class="overlay-text invisible">Click to load</p>
                         </div>
                     </div>
+                    <div>
+                        <h2>Little Game Engine</h2>
+                        <p>
+                            In this project, I explored a number of very interesting technologies. Written in C++, I used SDL and OpenGL
+                            to create a simple 3D renderer from the ground up.
+                        </p>
+                        <p>
+                            Some of the highlights have been learning more about 3D graphics & the OpenGL API, being able to apply
+                            C++ in medium-sized projects, and adding Emscripten to my toolkit for compiling to Web Assembly.
+                        </p>
+                        <p>
+                            There's clearly a lot more I could do here, and I'm excited to keep working on this project!
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            <!-- <div id="academics" class="sub-container">
+            <div id="academics" class="sub-container">
                 <h1>Academics</h1>
-            </div> -->
+            </div>
 
             <!-- <div id="extra" class="sub-container">
                 <h1>Extra curricular</h1>
