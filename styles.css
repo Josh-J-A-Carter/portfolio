@@ -141,6 +141,12 @@ img.contents {
     box-shadow: 0 3px 6px black;
 }
 
+iframe.contents {
+    position: absolute;
+    box-shadow: 0 3px 6px black;
+    border: none;
+}
+
 .overlay {
     position: absolute;
     left: 0;
