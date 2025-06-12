@@ -1,9 +1,12 @@
+
+var extension = window.loadData.useUnityWebExtension ? ".unityweb" : "";
+
 var buildUrl = window.loadData.folder;
 var loaderUrl = buildUrl + "/Build.loader.js";
 var config = {
-    dataUrl: buildUrl + "/Build.data.unityweb",
-    frameworkUrl: buildUrl + "/Build.framework.js.unityweb",
-    codeUrl: buildUrl + "/Build.wasm.unityweb",
+    dataUrl: buildUrl + "/Build.data" + extension,
+    frameworkUrl: buildUrl + "/Build.framework.js" + extension,
+    codeUrl: buildUrl + "/Build.wasm" + extension,
     streamingAssetsUrl: "StreamingAssets",
     companyName: "Chronodrive",
     productName: "Chronodrive",

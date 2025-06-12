@@ -2,19 +2,20 @@
 // The 'preload' class is used to stop animations from running on page load
 setTimeout(() => document.body.classList.remove('preload'), 500);
 
-setupUnityFrame(document.getElementById("chronodrive-frame"), "chronodrive");
+setupUnityFrame(document.getElementById("chronodrive-frame"), "chronodrive", useUnityWebExtension = true);
 setupEmscriptenFrame(document.getElementById("little-engine-frame"), 'engine', 'little-engine.js');
+setupUnityFrame(document.getElementById("space-invaders-frame"), "space-invaders");
 
 
-function setupUnityFrame(frame, folder) {
+function setupUnityFrame(frame, folder, useUnityWebExtension = false) {
     frame.onmouseover = () => showOverlay(frame);
     frame.onmouseout = () => hideOverlay(frame);
-    frame.onclick = () => instantiateUnity(frame, folder);
+    frame.onclick = () => instantiateUnity(frame, folder, useUnityWebExtension);
 
     frame.offsetHeight = (frame.offsetWidth * 9 / 16) + "px";
 }
 
-function instantiateUnity(frame, folder) {
+function instantiateUnity(frame, folder, useUnityWebExtension) {
     frame.onmouseover = null;
     frame.onmouseout = null;
     frame.onclick = null;
@@ -32,7 +33,8 @@ function instantiateUnity(frame, folder) {
     child.contentWindow.loadData = {
         folder: folder,
         parent: frame,
-        cleanup: () => overlay.remove()
+        cleanup: () => overlay.remove(),
+        useUnityWebExtension: useUnityWebExtension
     };
 }
 
