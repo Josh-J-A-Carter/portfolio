@@ -6,7 +6,6 @@ setupFrame(document.getElementById("chronodrive-frame"), 'chronodrive', 'Build.l
 setupFrame(document.getElementById("little-engine-frame"), 'engine', 'little-engine.js');
 resizeCanvas(document.getElementById("veracity-frame"));
 
-
 function setupFrame(frame, folder, file, unity = false) {
     frame.onmouseover = () => showOverlay(frame);
     frame.onmouseout = () => hideOverlay(frame);
@@ -14,6 +13,8 @@ function setupFrame(frame, folder, file, unity = false) {
 
     resizeCanvas(frame);
 }
+
+var littleEngine;
 
 function showOverlay(frame) {
     frame.querySelector(".overlay-text").classList.remove("invisible");
@@ -35,9 +36,19 @@ function instantiate(frame, folder, file, unity) {
     frame.querySelector(".overlay-text").classList.add("invisible");
     frame.querySelector(".spinner").classList.remove("invisible");
 
+    var canvas = frame.querySelector("canvas");
+
+    canvas.addEventListener("wheel", () => {
+        canvas.style.pointerEvents = "none";
+    });
+
+    frame.addEventListener("click", () => {
+        canvas.style.pointerEvents = "all";
+        if (unity == false) canvas.requestPointerLock();
+    });
+
     if (unity == false) {
         import(`./${folder}/${file}`).then(module => {
-            var canvas = frame.querySelector("canvas");
             var locateFile = (path, prefix) => {
                 console.log(prefix, path);
                 return `./${folder}/${path}`;
@@ -46,9 +57,12 @@ function instantiate(frame, folder, file, unity) {
             module.default({ canvas: canvas, locateFile: locateFile }).then(engine => {
                 resizeCanvas(frame);
                 frame.querySelector(".overlay").remove();
-    
-                // Weird stuff with focus; don't know how to fix atm :(
-                // engine.ccall('remove_focus', 'void', []);
+
+                // Have to keep track of focus, otherwise we need to press escape twice
+                document.addEventListener("pointerlockchange", () => {
+                    if (document.pointerLockElement === canvas) engine.ccall('focusin', 'void', []);
+                    else engine.ccall('focusout', 'void', []);
+                });
             });
         });
     }
@@ -66,7 +80,6 @@ function instantiate(frame, folder, file, unity) {
             productVersion: "1.0",
         };
 
-        var canvas = frame.querySelector("canvas");
         var script = document.createElement("script");
         script.src = loaderUrl;
         script.onload = () => {

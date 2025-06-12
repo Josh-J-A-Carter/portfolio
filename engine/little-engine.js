@@ -50,7 +50,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\Joshua\AppData\Local\Temp\tmplxzbcez4.js
+// include: C:\Users\Joshua\AppData\Local\Temp\tmp3cg6ikfz.js
 
   Module['expectedDataFileDownloads'] ??= 0;
   Module['expectedDataFileDownloads']++;
@@ -234,21 +234,21 @@ Module['FS_createPath']("/", "shaders", true, true);
 
   })();
 
-// end include: C:\Users\Joshua\AppData\Local\Temp\tmplxzbcez4.js
-// include: C:\Users\Joshua\AppData\Local\Temp\tmpzok6k07c.js
+// end include: C:\Users\Joshua\AppData\Local\Temp\tmp3cg6ikfz.js
+// include: C:\Users\Joshua\AppData\Local\Temp\tmp17h1vppu.js
 
     // All the pre-js content up to here must remain later on, we need to run
     // it.
     if (Module['$ww'] || (typeof ENVIRONMENT_IS_PTHREAD != 'undefined' && ENVIRONMENT_IS_PTHREAD)) Module['preRun'] = [];
     var necessaryPreJSTasks = Module['preRun'].slice();
-  // end include: C:\Users\Joshua\AppData\Local\Temp\tmpzok6k07c.js
-// include: C:\Users\Joshua\AppData\Local\Temp\tmpryx8ugej.js
+  // end include: C:\Users\Joshua\AppData\Local\Temp\tmp17h1vppu.js
+// include: C:\Users\Joshua\AppData\Local\Temp\tmp0t7qpxfy.js
 
     if (!Module['preRun']) throw 'Module.preRun should exist because file support used it; did a pre-js delete it?';
     necessaryPreJSTasks.forEach((task) => {
       if (Module['preRun'].indexOf(task) < 0) throw 'All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?';
     });
-  // end include: C:\Users\Joshua\AppData\Local\Temp\tmpryx8ugej.js
+  // end include: C:\Users\Joshua\AppData\Local\Temp\tmp0t7qpxfy.js
 
 
 // Sometimes an existing Module object exists with properties
@@ -10126,12 +10126,6 @@ var ASM_CONSTS = {
   var _emscripten_set_focus_callback_on_thread = (target, userData, useCapture, callbackfunc, targetThread) =>
       registerFocusEventCallback(target, userData, useCapture, callbackfunc, 13, "focus", targetThread);
 
-  var _emscripten_set_focusin_callback_on_thread = (target, userData, useCapture, callbackfunc, targetThread) =>
-      registerFocusEventCallback(target, userData, useCapture, callbackfunc, 14, "focusin", targetThread);
-
-  var _emscripten_set_focusout_callback_on_thread = (target, userData, useCapture, callbackfunc, targetThread) =>
-      registerFocusEventCallback(target, userData, useCapture, callbackfunc, 15, "focusout", targetThread);
-
   
   
   
@@ -11625,10 +11619,6 @@ var wasmImports = {
   /** @export */
   emscripten_set_focus_callback_on_thread: _emscripten_set_focus_callback_on_thread,
   /** @export */
-  emscripten_set_focusin_callback_on_thread: _emscripten_set_focusin_callback_on_thread,
-  /** @export */
-  emscripten_set_focusout_callback_on_thread: _emscripten_set_focusout_callback_on_thread,
-  /** @export */
   emscripten_set_fullscreenchange_callback_on_thread: _emscripten_set_fullscreenchange_callback_on_thread,
   /** @export */
   emscripten_set_gamepadconnected_callback_on_thread: _emscripten_set_gamepadconnected_callback_on_thread,
@@ -11692,7 +11682,8 @@ var ___wasm_call_ctors = createExportWrapper('__wasm_call_ctors', 0);
 var _free = createExportWrapper('free', 1);
 var _malloc = createExportWrapper('malloc', 1);
 var _main = Module['_main'] = createExportWrapper('__main_argc_argv', 2);
-var _remove_focus = Module['_remove_focus'] = createExportWrapper('remove_focus', 0);
+var _focusout = Module['_focusout'] = createExportWrapper('focusout', 0);
+var _focusin = Module['_focusin'] = createExportWrapper('focusin', 0);
 var _fflush = createExportWrapper('fflush', 1);
 var _strerror = createExportWrapper('strerror', 1);
 var _emscripten_stack_init = wasmExports['emscripten_stack_init']
