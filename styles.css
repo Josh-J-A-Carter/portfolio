@@ -40,9 +40,20 @@ body {
 }
 
 .central {
-    width: 60%;
     margin-left: auto;
     margin-right: auto;
+}
+
+@media only screen and (min-width: 1000px) {
+    .central {
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .central {
+        width: 90%;
+    }
 }
 
 .central h1 {
@@ -92,7 +103,8 @@ body {
     width: 100%;
 }
 
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 1000px) {
+
     .project-container {
         flex-direction: row;
     }
@@ -113,7 +125,8 @@ body {
     }
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1000px) {
+
     .project-container {
         flex-direction: column;
     }
@@ -173,19 +186,36 @@ iframe.contents {
     border: none;
 }
 
-.overlay {
-    position: absolute;
-    left: 0;
-    top: 0;
-    min-width: 100%;
-    min-height: 100%;
-    backdrop-filter: blur(0px);
-    background: transparent;
-    background-size: contain;
-    transition: all .1s ease-in-out;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+@media only screen and (min-width: 1000px) {
+    .overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        min-width: 100%;
+        min-height: 100%;
+        backdrop-filter: blur(0px);
+        background: transparent;
+        background-size: contain;
+        transition: all .1s ease-in-out;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+}
+
+@media only screen and (max-width: 1000px) {
+    .overlay {
+        display: none;
+    }
+
+    iframe.contents {
+        display: none;
+    }
+
+    .content-frame canvas.contents {
+        display: none;
+    }
 }
 
 .blur {

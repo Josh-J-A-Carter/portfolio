@@ -86,6 +86,7 @@ function instantiateEmscripten(frame, folder, file) {
         module.default({ canvas: canvas, locateFile: locateFile }).then(engine => {
             resizeCanvas(frame);
             frame.querySelector(".overlay").remove();
+            canvas.requestPointerLock();
 
             // Have to keep track of focus, otherwise we need to press escape twice
             document.addEventListener("pointerlockchange", () => {
