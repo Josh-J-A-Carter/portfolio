@@ -88,9 +88,43 @@ body {
 
 .project-container {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     width: 100%;
+}
+
+@media only screen and (min-width: 900px) {
+    .project-container {
+        flex-direction: row;
+    }
+
+    .content-frame {
+        min-width: 60%;
+        max-width: 60%;
+        margin-left: 50px;
+        float: right;
+        position: relative;
+        margin-left: 50px;
+    }
+
+    .content-frame.left {
+        float: left;
+        margin-left: 0px;
+        margin-right: 50px;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .project-container {
+        flex-direction: column;
+    }
+
+    .project-container-left {
+        flex-direction: column-reverse;
+    }
+
+    .content-frame {
+        width: 100%;
+    }
 }
 
 h1 {
@@ -113,20 +147,6 @@ p {
 
 .sc2 a {
     color: var(--text-color2);
-}
-
-.content-frame {
-    float: right;
-    min-width: 60%;
-    max-width: 60%;
-    position: relative;
-    margin-left: 50px;
-}
-
-.content-frame.left {
-    float: left;
-    margin-left: 0px;
-    margin-right: 50px;
 }
 
 .contents {
