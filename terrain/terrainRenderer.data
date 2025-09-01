@@ -1,0 +1,328 @@
+#version 300 es
+
+precision highp float;
+
+
+in vec4 f_col;
+
+out vec4 fragColor;
+
+
+void main() {
+    fragColor = f_col;
+}
+#version 300 es
+
+precision highp float;
+
+layout (location = 0) in vec3 v_pos;
+layout (location = 1) in vec3 v_col;
+
+out vec4 f_col;
+
+uniform mat4 mat_modl;
+uniform mat4 mat_view;
+uniform mat4 mat_proj;
+
+void main() {
+    gl_Position = mat_proj * mat_view * mat_modl * vec4(v_pos.x, v_pos.y, v_pos.z, 1.0f);;
+    f_col = vec4(v_col.rgb, 1.0f);
+}
+#version 300 es
+
+precision highp float;
+
+
+in vec2 f_uv;
+
+out vec4 fragColor;
+
+uniform sampler2D color_data;
+uniform sampler2D depth_data;
+
+float linearise_depth(float d, float zNear, float zFar) {
+    float z_n = 2.0 * d - 1.0;
+    return 2.0 * zNear * zFar / (zFar + zNear - z_n * (zFar - zNear));
+}
+
+void main() {
+    // 
+    // To do: give near and far plane as uniforms
+    // 
+
+    float depth = 1.0f - linearise_depth(texture(depth_data, f_uv).x, -0.3f, -500.0f);
+
+    // Linear fog
+    // float max = 200.0f;
+    // float min = 100.0f;
+    // float fog = clamp((max - depth) / (max - min), 0.0f, 1.0f);
+
+    // Exponential fog
+    float strength = 8.0f;
+    float far = 500.0f;
+    float fog = exp(-pow(strength * depth / far, 2.0f));
+
+    vec4 fog_color = vec4(0.7f, 0.7f, 1.0f, 1.0f);
+    vec4 scene_color = texture(color_data, f_uv);
+    fragColor = mix(fog_color, scene_color, fog);
+
+
+    ////// Debugging
+
+    // float depth = texture(depth_data, f_uv).x / 5.0f;
+    // float depth = linearise_depth(texture(depth_data, f_uv).x, 500.0f, 0.3f);
+    // fragColor = vec4(depth, depth, depth, 1.0f);
+    // fragColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    // fragColor = texture(color_data, f_uv);
+}
+#version 300 es
+
+precision highp float;
+
+layout (location = 0) in vec3 v_pos;
+layout (location = 1) in vec2 v_uv;
+
+out vec2 f_uv;
+
+void main() {
+    f_uv = v_uv;
+
+    gl_Position = vec4(v_pos.xyz, 1.0f);
+}
+#version 300 es
+
+precision highp float;
+
+
+in vec2 f_uv;
+
+out vec4 fragColor;
+
+uniform int chunk_diameter;
+uniform ivec2 chunk_centre;
+
+uniform uint map_seed;
+uniform float base_freq;
+uniform float base_ampl;
+uniform float base_noise;
+
+
+uint pcg_hash(uint seed) {
+    uint state = map_seed * seed * 747796405u + 2891336453u;
+    uint word = ((state >> ((state >> 28u) + 4u)) ^ state) * 277803737u;
+    return (word >> 22u) ^ word;
+}
+
+vec2 randv(vec2 v_in) {
+    const uint MAX_INT = 4294967295u;
+    // Terrain was repeating but only in -x, -z directions
+    // => uint(x) is mapped to same value for all x < 0.
+    // But if you try uint(x + float(MAX_INT / 2u)), float doesn't have enough precision
+    // so it becomes identical to surrounding values.
+    // Thus, need to cast x to int, *then* move away from 0, and turn back into uint.
+    uint x = uint(int(v_in.x) + int(MAX_INT / 2u));
+    uint y = uint(int(v_in.y) + int(MAX_INT / 2u));
+    float theta = float(pcg_hash(pcg_hash(x) + y)) / float(MAX_INT);
+    theta *= 2.0f * 3.14159f;
+
+    return vec2(cos(theta), sin(theta));
+}
+
+float smoothmap(float t) {
+    return ((6.0f * t - 15.0f) * t + 10.0f) * t * t * t;
+}
+
+float perlin(float x_in, float y_in, float freq) {
+    // Find the chunk that this fragment lives in
+    // float x_raw = x_in * float(chunk_diameter) * freq + float(chunk_centre.x) * freq;
+    // float y_raw = y_in * float(chunk_diameter) * freq + float(chunk_centre.y) * freq;
+    // int x = int(x_raw);
+    // int y = int(y_raw);
+    // if (x_raw <= 0.0f) x = x - 1;
+    // if (y_raw <= 0.0f) y = y - 1;
+
+    const int offset = 100000;
+    float x_raw = x_in * float(chunk_diameter) * freq + float(chunk_centre.x + offset) * freq;
+    float y_raw = y_in * float(chunk_diameter) * freq + float(chunk_centre.y + offset) * freq;
+    int x = int(x_raw);
+    int y = int(y_raw);
+    if (x_raw <= 0.0f) x = x - 1;
+    if (y_raw <= 0.0f) y = y - 1;
+
+
+    // Thus, corners are at:
+    vec2 c1 = vec2(x, y);
+    vec2 c2 = vec2(x, y + 1);
+    vec2 c3 = vec2(x + 1, y);
+    vec2 c4 = vec2(x + 1, y + 1);
+
+    // These have corresponding gradient vectors:
+    vec2 g1 = randv(c1);
+    vec2 g2 = randv(c2);
+    vec2 g3 = randv(c3);
+    vec2 g4 = randv(c4);
+
+    // Difference vectors:
+    float dx = fract(x_raw);
+    float dy = fract(y_raw);
+    vec2 d1 = vec2(dx, dy);
+    vec2 d2 = vec2(dx, dy-1.0f);
+    vec2 d3 = vec2(dx-1.0f, dy);
+    vec2 d4 = vec2(dx-1.0f, dy-1.0f);
+
+    // Combine
+    float o1 = dot(d1, g1);
+    float o2 = dot(d2, g2);
+    float o3 = dot(d3, g3);
+    float o4 = dot(d4, g4);
+
+    float u = smoothmap(dx);
+    float v = smoothmap(dy);
+    return mix(mix(o1, o2, v), mix(o3, o4, v), u);
+}
+
+void main() {
+    float noise = base_noise;
+    float freq = base_freq;
+    float ampl = base_ampl;
+
+    for (int iter = 0 ; iter < 7 ; iter += 1) {
+        noise += ampl * perlin(f_uv.x, f_uv.y, freq);
+        freq *= 2.0f;
+        ampl *= 0.5f;
+    }
+
+    fragColor = vec4(noise, noise, noise, 1.0f);
+}
+#version 300 es
+
+precision highp float;
+
+layout (location = 0) in vec3 v_pos;
+layout (location = 1) in vec2 v_uv;
+
+out vec2 f_uv;
+
+void main() {
+    f_uv = v_uv;
+
+    gl_Position = vec4(v_pos.xyz, 1.0f);
+}
+#version 300 es
+
+precision highp float;
+
+
+in vec3 f_normal;
+in vec2 f_uv;
+
+out vec4 fragColor;
+
+
+uniform sampler2D height_data;
+uniform sampler2D amplitude_data;
+uniform sampler2D moisture_data;
+
+float height(vec2 uv) {
+    return texture(height_data, uv).x * (1.0f - texture(amplitude_data, uv).x);
+}
+
+float smoothmap(float t) {
+    return ((6.0f * t - 15.0f) * t + 10.0f) * t * t * t;
+}
+
+void main() {
+    
+    ////// Basic lighting model
+    const vec3 dir = vec3(0.0f, -1.0f, -1.0f);
+
+    const vec4 upperCol = vec4(1.2f, 1.2f, 1.2f, 1.0f);
+    const vec4 dryCol = vec4(1.0f, 0.6f, 0.3f, 1.0f);
+    const vec4 wetCol = vec4(0.3f, 0.6f, 0.3f, 1.0f);
+
+
+    float light = dot(normalize(f_normal), normalize(dir));
+    if (light < 0.0) light = 0.0f;
+    light += 0.1f;
+
+    ///// Cool idea but link to player's exact position, not uv distance lol
+    // float uv_dist = length(f_uv - vec2(0.5f, 0.5f));
+    // light += 1.0f * 2.0f * uv_dist * uv_dist;
+
+    float altitude = height(f_uv);
+    float moisture = texture(moisture_data, f_uv).x;
+
+    vec4 col = mix(dryCol, wetCol, smoothmap(moisture));
+    col = mix(col, upperCol, pow(sin(altitude * 1.57f), 2.0f));
+
+    fragColor = vec4(col.xyz * light, 1.0f);
+
+
+    ////// Debugging
+
+    // normals
+    // vec3 n = normalize(f_normal);
+    // fragColor = vec4(n.x, n.y, n.z, 1.0f);
+
+    // uv
+    // vec2 val = texture(height_data, f_uv).xy;
+    // fragColor = vec4(val.xy, 0.0f, 1.0f);
+
+    // raw noise
+    // float val = texture(height_data, f_uv).x;
+    // fragColor = vec4(val, val, val, 1.0f);
+}
+#version 300 es
+
+precision highp float;
+
+layout (location = 0) in vec3 v_pos;
+layout (location = 1) in vec2 v_uv;
+
+out vec3 f_normal;
+out vec2 f_uv;
+
+uniform mat4 mat_modl;
+uniform mat4 mat_view;
+uniform mat4 mat_proj;
+
+uniform sampler2D height_data;
+uniform sampler2D amplitude_data;
+
+uniform int chunk_radius;
+uniform int chunk_x;
+uniform int chunk_z;
+
+float height(vec2 uv) {
+    return texture(height_data, uv).x * (1.0f - texture(amplitude_data, uv).x);
+}
+
+void main() {
+    // Map UV for this chunk segment, into the entire grid of chunks
+    float num_chunks = float(2 * chunk_radius - 1);
+    vec2 uv = v_uv / num_chunks;
+    uv = uv + vec2(float(chunk_x) / num_chunks, float(chunk_z) / num_chunks);
+    f_uv = uv;
+
+    // World position
+    vec4 world_pos = mat_modl * vec4(v_pos.x, v_pos.y, v_pos.z, 1.0f);
+    float x = world_pos.x;
+    float z = world_pos.z;
+
+    float y = height(uv);
+    // float y = 0.0f;
+
+    const float max_height = 30.0f;
+    world_pos = vec4(x, y * max_height, z, 1.0f);
+    gl_Position = mat_proj * mat_view * world_pos;    
+
+
+    // Normal vector
+    int width = textureSize(height_data, 0).x;
+    float delta = 2.0f / float(width);
+ 
+    vec3 dx = vec3(2.0f * delta, height(uv + vec2(delta, 0.0f)) - height(uv - vec2(delta, 0.0f)), 0.0f);
+    vec3 dz = vec3(0.0f, height(uv + vec2(0.0f, delta)) - height(uv - vec2(0.0f, delta)), 2.0f * delta);
+
+    f_normal = cross(dx, dz);
+}

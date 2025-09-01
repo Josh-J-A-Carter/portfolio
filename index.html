@@ -39,6 +39,11 @@
 
             <div id="projects" class="sub-container sc2">
                 <h1>Projects</h1>
+                <p class="disclaimer">
+                    <b>Note</b>: as of last updating this website, Firefox has a <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1942379" target="_blank">
+                    relatively new bug</a> which causes mouse movement to act strangely in the 3D environments below. If you encounter this bug,
+                    you might want to try another browser.
+                </p>
                 <!-- Chronodrive project -->
                 <div class="project-container">
                     <div>
@@ -91,8 +96,40 @@
                     </div>
                 </div>
 
-                <!-- Veracity project -->
+                <!-- Terrain renderer -->
                 <div class="project-container">
+                    <div>
+                        <h2>Terrain Generation</h2>
+                        <p>
+                            An exploration of (virtually) infinite terrain generation. This requires managing logical chunks of the terrain,
+                            creating Perlin noise for noise maps, and generating mesh data. I'd like to eventually add physics,
+                            structures (e.g. trees), and a level-of-detail system.
+                        </p>
+                        <p>
+                            Also built using C++, OpenGL, and Emscripten, this project uses what I've learned from 'Little Game Engine'.
+                            As such, I created another (minimalistic) game engine for this, in order to make better design choices this time around.
+                        </p>
+                    </div>
+                    <div class="content-frame pointer" id="terrain-frame">
+                        <img class="contents" src="./terrain/terrain-img.png">
+                        <canvas class="contents" id="canvas2" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+                        <div class="overlay">
+                            <div class="spinner invisible"></div>
+                            <p class="overlay-text invisible">Click to load</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Veracity project -->
+                <div class="project-container project-container-left">
+                    <div class="content-frame left" id="veracity-frame">
+                        <img class="contents" src="./veracity/veracity-img.png">
+                        <canvas class="contents"></canvas>
+                        <div class="overlay">
+                            <div class="spinner invisible"></div>
+                            <p class="overlay-text invisible">Click to load</p>
+                        </div>
+                    </div>
                     <div>
                         <h2>Veracity Logic</h2>
                         <p>
@@ -108,25 +145,10 @@
                             <a href="https://github.com/Josh-J-A-Carter/Veracity-with-Event-Calculus" target="_blank">here</a>.
                         </p>
                     </div>
-                    <div class="content-frame" id="veracity-frame">
-                        <img class="contents" src="./veracity/veracity-img.png">
-                        <canvas class="contents"></canvas>
-                        <div class="overlay">
-                            <div class="spinner invisible"></div>
-                            <p class="overlay-text invisible">Click to load</p>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Space-invaders project -->
-                <div class="project-container project-container-left">
-                    <div class="content-frame left pointer" id="space-invaders-frame">
-                        <img class="contents" src="./space-invaders/space-invaders-img.png">
-                        <div class="overlay">
-                            <div class="spinner invisible"></div>
-                            <p class="overlay-text invisible">Click to load</p>
-                        </div>
-                    </div>
+                <div class="project-container">
                     <div>
                         <h2>Spacer Invaders Game Jam</h2>
                         <p>
@@ -141,6 +163,13 @@
                             to explore different shaders, visual effects,
                             & transitions.
                         </p>
+                    </div>
+                    <div class="content-frame pointer" id="space-invaders-frame">
+                        <img class="contents" src="./space-invaders/space-invaders-img.png">
+                        <div class="overlay">
+                            <div class="spinner invisible"></div>
+                            <p class="overlay-text invisible">Click to load</p>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ setTimeout(() => document.body.classList.remove('preload'), 500);
 
 setupUnityFrame(document.getElementById("chronodrive-frame"), "chronodrive", useUnityWebExtension = true);
 setupEmscriptenFrame(document.getElementById("little-engine-frame"), 'engine', 'little-engine.js');
+setupEmscriptenFrame(document.getElementById("terrain-frame"), 'terrain', 'terrainRenderer.js');
 setupUnityFrame(document.getElementById("space-invaders-frame"), "space-invaders");
 
 
@@ -79,7 +80,6 @@ function instantiateEmscripten(frame, folder, file) {
 
     import(`./${folder}/${file}`).then(module => {
         var locateFile = (path, prefix) => {
-            console.log(prefix, path);
             return `./${folder}/${path}`;
         }
 
