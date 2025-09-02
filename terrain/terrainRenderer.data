@@ -1,4 +1,8 @@
-#version 300 es
+
+
+
+
+{CUT}#version 300 es
 
 precision highp float;
 
@@ -11,7 +15,16 @@ out vec4 fragColor;
 void main() {
     fragColor = f_col;
 }
-#version 300 #version 300 es
+
+{CUT}
+
+
+
+
+
+
+
+{CUT}#version 300 es
 
 precision highp float;
 
@@ -29,9 +42,15 @@ void main() {
     f_col = vec4(v_col.rgb, 1.0f);
 }
 
+{CUT}
 
 
-#version 300 es
+
+
+
+
+
+{CUT}#version 300 es
 
 precision highp float;
 
@@ -78,7 +97,16 @@ void main() {
     // fragColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
     // fragColor = texture(color_data, f_uv);
 }
-#version 300 es
+
+{CUT}
+
+
+
+
+
+
+
+{CUT}#version 300 es
 
 precision highp float;
 
@@ -92,7 +120,16 @@ void main() {
 
     gl_Position = vec4(v_pos.xyz, 1.0f);
 }
-#version 300 es
+
+{CUT}
+
+
+
+
+
+
+
+{CUT}#version 300 es
 
 precision highp float;
 
@@ -197,7 +234,16 @@ void main() {
 
     fragColor = vec4(noise, noise, noise, 1.0f);
 }
-#version 300 es
+
+{CUT}
+
+
+
+
+
+
+
+{CUT}#version 300 es
 
 precision highp float;
 
@@ -211,7 +257,16 @@ void main() {
 
     gl_Position = vec4(v_pos.xyz, 1.0f);
 }
-#version 300 es
+
+{CUT}
+
+
+
+
+
+
+
+{CUT}#version 300 es
 
 precision highp float;
 
@@ -275,7 +330,16 @@ void main() {
     // float val = texture(height_data, f_uv).x;
     // fragColor = vec4(val, val, val, 1.0f);
 }
-#version 300 es
+
+{CUT}
+
+
+
+
+
+
+
+{CUT}#version 300 es
 
 precision highp float;
 
@@ -329,11 +393,8 @@ void main() {
 
     f_normal = cross(dx, dz);
 }
-This is a test
 
-
-Pls
-
+{CUT}
 
 
 

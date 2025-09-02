@@ -50,7 +50,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\Joshua\AppData\Local\Temp\tmpyma_auyq.js
+// include: C:\Users\Joshua\AppData\Local\Temp\tmpvic7wyzc.js
 
   Module['expectedDataFileDownloads'] ??= 0;
   Module['expectedDataFileDownloads']++;
@@ -229,25 +229,25 @@ Module['FS_createPath']("/", "shaders", true, true);
     }
 
     }
-    loadPackage({"files": [{"filename": "/assets/brick.png", "start": 0, "end": 75197}, {"filename": "/assets/cube.blend", "start": 75197, "end": 646877}, {"filename": "/assets/cube.blend1", "start": 646877, "end": 1184297}, {"filename": "/assets/cube.mtl", "start": 1184297, "end": 1184523}, {"filename": "/assets/cube.obj", "start": 1184523, "end": 1185237}, {"filename": "/assets/dudv.jpg", "start": 1185237, "end": 1330130}, {"filename": "/assets/dudv.png", "start": 1330130, "end": 1895652}, {"filename": "/assets/floor.blend", "start": 1895652, "end": 2457804}, {"filename": "/assets/floor.blend1", "start": 2457804, "end": 3019956}, {"filename": "/assets/floor.mtl", "start": 3019956, "end": 3020187}, {"filename": "/assets/floor.obj", "start": 3020187, "end": 3020536}, {"filename": "/assets/floor.png", "start": 3020536, "end": 3049539}, {"filename": "/assets/gloss.png", "start": 3049539, "end": 3049622}, {"filename": "/assets/gloss.pxo", "start": 3049622, "end": 3050199}, {"filename": "/assets/noise.png", "start": 3050199, "end": 3254312}, {"filename": "/assets/normal.jpg", "start": 3254312, "end": 3424480}, {"filename": "/assets/normal.png", "start": 3424480, "end": 3953310}, {"filename": "/assets/quad.blend", "start": 3953310, "end": 4456130}, {"filename": "/assets/quad.blend1", "start": 4456130, "end": 4958950}, {"filename": "/assets/quad.mtl", "start": 4958950, "end": 4959007}, {"filename": "/assets/quad.obj", "start": 4959007, "end": 4959327}, {"filename": "/assets/sphere.blend", "start": 4959327, "end": 5564163}, {"filename": "/assets/sphere.blend1", "start": 5564163, "end": 6158955}, {"filename": "/assets/sphere.mtl", "start": 6158955, "end": 6159194}, {"filename": "/assets/sphere.obj", "start": 6159194, "end": 6201733}, {"filename": "/assets/sphere_tex.png", "start": 6201733, "end": 6201824}, {"filename": "/assets/sphere_tex.pxo", "start": 6201824, "end": 6202399}, {"filename": "/assets/terrain.blend", "start": 6202399, "end": 7724039}, {"filename": "/assets/terrain.blend1", "start": 7724039, "end": 9245679}, {"filename": "/assets/terrain.mtl", "start": 9245679, "end": 9245910}, {"filename": "/assets/terrain.obj", "start": 9245910, "end": 9946097}, {"filename": "/assets/terrain.png", "start": 9946097, "end": 9967283}, {"filename": "/assets/terrain.pxo", "start": 9967283, "end": 10020834}, {"filename": "/scenes/main.scene", "start": 10020834, "end": 10024639}, {"filename": "/shaders/light.fs", "start": 10024639, "end": 10024927}, {"filename": "/shaders/light.vs", "start": 10024927, "end": 10025222}, {"filename": "/shaders/phong.fs", "start": 10025222, "end": 10029770}, {"filename": "/shaders/phong.vs", "start": 10029770, "end": 10030635}, {"filename": "/shaders/shadow.fs", "start": 10030635, "end": 10030668}, {"filename": "/shaders/shadow.vs", "start": 10030668, "end": 10030914}, {"filename": "/shaders/water.fs", "start": 10030914, "end": 10034465}, {"filename": "/shaders/water.vs", "start": 10034465, "end": 10035031}], "remote_package_size": 10035031});
+    loadPackage({"files": [{"filename": "/assets/brick.png", "start": 0, "end": 75197}, {"filename": "/assets/cube.blend", "start": 75197, "end": 646877}, {"filename": "/assets/cube.blend1", "start": 646877, "end": 1184297}, {"filename": "/assets/cube.mtl", "start": 1184297, "end": 1184523}, {"filename": "/assets/cube.obj", "start": 1184523, "end": 1185237}, {"filename": "/assets/dudv.jpg", "start": 1185237, "end": 1330130}, {"filename": "/assets/dudv.png", "start": 1330130, "end": 1895652}, {"filename": "/assets/floor.blend", "start": 1895652, "end": 2457804}, {"filename": "/assets/floor.blend1", "start": 2457804, "end": 3019956}, {"filename": "/assets/floor.mtl", "start": 3019956, "end": 3020187}, {"filename": "/assets/floor.obj", "start": 3020187, "end": 3020536}, {"filename": "/assets/floor.png", "start": 3020536, "end": 3049539}, {"filename": "/assets/gloss.png", "start": 3049539, "end": 3049622}, {"filename": "/assets/gloss.pxo", "start": 3049622, "end": 3050199}, {"filename": "/assets/noise.png", "start": 3050199, "end": 3254312}, {"filename": "/assets/normal.jpg", "start": 3254312, "end": 3424480}, {"filename": "/assets/normal.png", "start": 3424480, "end": 3953310}, {"filename": "/assets/quad.blend", "start": 3953310, "end": 4456130}, {"filename": "/assets/quad.blend1", "start": 4456130, "end": 4958950}, {"filename": "/assets/quad.mtl", "start": 4958950, "end": 4959007}, {"filename": "/assets/quad.obj", "start": 4959007, "end": 4959327}, {"filename": "/assets/sphere.blend", "start": 4959327, "end": 5564163}, {"filename": "/assets/sphere.blend1", "start": 5564163, "end": 6158955}, {"filename": "/assets/sphere.mtl", "start": 6158955, "end": 6159194}, {"filename": "/assets/sphere.obj", "start": 6159194, "end": 6201733}, {"filename": "/assets/sphere_tex.png", "start": 6201733, "end": 6201824}, {"filename": "/assets/sphere_tex.pxo", "start": 6201824, "end": 6202399}, {"filename": "/assets/terrain.blend", "start": 6202399, "end": 7724039}, {"filename": "/assets/terrain.blend1", "start": 7724039, "end": 9245679}, {"filename": "/assets/terrain.mtl", "start": 9245679, "end": 9245910}, {"filename": "/assets/terrain.obj", "start": 9245910, "end": 9946097}, {"filename": "/assets/terrain.png", "start": 9946097, "end": 9967283}, {"filename": "/assets/terrain.pxo", "start": 9967283, "end": 10020834}, {"filename": "/scenes/main.scene", "start": 10020834, "end": 10024638}, {"filename": "/shaders/light.fs", "start": 10024638, "end": 10024926}, {"filename": "/shaders/light.vs", "start": 10024926, "end": 10025221}, {"filename": "/shaders/phong.fs", "start": 10025221, "end": 10029769}, {"filename": "/shaders/phong.vs", "start": 10029769, "end": 10030634}, {"filename": "/shaders/shadow.fs", "start": 10030634, "end": 10030667}, {"filename": "/shaders/shadow.vs", "start": 10030667, "end": 10030913}, {"filename": "/shaders/water.fs", "start": 10030913, "end": 10034464}, {"filename": "/shaders/water.vs", "start": 10034464, "end": 10035030}], "remote_package_size": 10035030});
 
   })();
 
-// end include: C:\Users\Joshua\AppData\Local\Temp\tmpyma_auyq.js
-// include: C:\Users\Joshua\AppData\Local\Temp\tmp379nq9s9.js
+// end include: C:\Users\Joshua\AppData\Local\Temp\tmpvic7wyzc.js
+// include: C:\Users\Joshua\AppData\Local\Temp\tmpmmc47nws.js
 
     // All the pre-js content up to here must remain later on, we need to run
     // it.
     if (Module['$ww'] || (typeof ENVIRONMENT_IS_PTHREAD != 'undefined' && ENVIRONMENT_IS_PTHREAD)) Module['preRun'] = [];
     var necessaryPreJSTasks = Module['preRun'].slice();
-  // end include: C:\Users\Joshua\AppData\Local\Temp\tmp379nq9s9.js
-// include: C:\Users\Joshua\AppData\Local\Temp\tmptxcr_7cy.js
+  // end include: C:\Users\Joshua\AppData\Local\Temp\tmpmmc47nws.js
+// include: C:\Users\Joshua\AppData\Local\Temp\tmpn5y99esk.js
 
     if (!Module['preRun']) throw 'Module.preRun should exist because file support used it; did a pre-js delete it?';
     necessaryPreJSTasks.forEach((task) => {
       if (Module['preRun'].indexOf(task) < 0) throw 'All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?';
     });
-  // end include: C:\Users\Joshua\AppData\Local\Temp\tmptxcr_7cy.js
+  // end include: C:\Users\Joshua\AppData\Local\Temp\tmpn5y99esk.js
 
 
 // Sometimes an existing Module object exists with properties
