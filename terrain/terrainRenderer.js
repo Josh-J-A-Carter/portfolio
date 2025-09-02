@@ -50,7 +50,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\Joshua\AppData\Local\Temp\tmpa94ofb25.js
+// include: C:\Users\Joshua\AppData\Local\Temp\tmph0g5lbum.js
 
   Module['expectedDataFileDownloads'] ??= 0;
   Module['expectedDataFileDownloads']++;
@@ -227,25 +227,25 @@ Module['FS_createPath']("/", "shaders", true, true);
     }
 
     }
-    loadPackage({"files": [{"filename": "/shaders/default.fs", "start": 0, "end": 132}, {"filename": "/shaders/default.vs", "start": 132, "end": 510}, {"filename": "/shaders/post.fs", "start": 510, "end": 1762}, {"filename": "/shaders/post.vs", "start": 1762, "end": 1982}, {"filename": "/shaders/rng.fs", "start": 1982, "end": 5073}, {"filename": "/shaders/rng.vs", "start": 5073, "end": 5293}, {"filename": "/shaders/terrain.fs", "start": 5293, "end": 6908}, {"filename": "/shaders/terrain.vs", "start": 6908, "end": 8379}], "remote_package_size": 8379});
+    loadPackage({"files": [{"filename": "/shaders/default.fs", "start": 0, "end": 132}, {"filename": "/shaders/default.vs", "start": 132, "end": 493}, {"filename": "/shaders/post.fs", "start": 493, "end": 1745}, {"filename": "/shaders/post.vs", "start": 1745, "end": 1965}, {"filename": "/shaders/rng.fs", "start": 1965, "end": 5056}, {"filename": "/shaders/rng.vs", "start": 5056, "end": 5276}, {"filename": "/shaders/terrain.fs", "start": 5276, "end": 6891}, {"filename": "/shaders/terrain.vs", "start": 6891, "end": 8362}], "remote_package_size": 8362});
 
   })();
 
-// end include: C:\Users\Joshua\AppData\Local\Temp\tmpa94ofb25.js
-// include: C:\Users\Joshua\AppData\Local\Temp\tmpks4zqja1.js
+// end include: C:\Users\Joshua\AppData\Local\Temp\tmph0g5lbum.js
+// include: C:\Users\Joshua\AppData\Local\Temp\tmp23vof8i2.js
 
     // All the pre-js content up to here must remain later on, we need to run
     // it.
     if (Module['$ww'] || (typeof ENVIRONMENT_IS_PTHREAD != 'undefined' && ENVIRONMENT_IS_PTHREAD)) Module['preRun'] = [];
     var necessaryPreJSTasks = Module['preRun'].slice();
-  // end include: C:\Users\Joshua\AppData\Local\Temp\tmpks4zqja1.js
-// include: C:\Users\Joshua\AppData\Local\Temp\tmpq8w0nlc_.js
+  // end include: C:\Users\Joshua\AppData\Local\Temp\tmp23vof8i2.js
+// include: C:\Users\Joshua\AppData\Local\Temp\tmpmlhg0s1z.js
 
     if (!Module['preRun']) throw 'Module.preRun should exist because file support used it; did a pre-js delete it?';
     necessaryPreJSTasks.forEach((task) => {
       if (Module['preRun'].indexOf(task) < 0) throw 'All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?';
     });
-  // end include: C:\Users\Joshua\AppData\Local\Temp\tmpq8w0nlc_.js
+  // end include: C:\Users\Joshua\AppData\Local\Temp\tmpmlhg0s1z.js
 
 
 // Sometimes an existing Module object exists with properties
