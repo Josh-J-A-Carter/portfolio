@@ -3,9 +3,10 @@
 setTimeout(() => document.body.classList.remove('preload'), 500);
 
 setupUnityFrame(document.getElementById("chronodrive-frame"), "chronodrive", useUnityWebExtension = true);
+setupUnityFrame(document.getElementById("wetlands-frame"), "wetlands");
 setupEmscriptenFrame(document.getElementById("little-engine-frame"), 'engine', 'little-engine.js');
 setupEmscriptenFrame(document.getElementById("terrain-frame"), 'terrain', 'terrainRenderer.js');
-setupUnityFrame(document.getElementById("space-invaders-frame"), "space-invaders");
+// setupUnityFrame(document.getElementById("space-invaders-frame"), "space-invaders");
 
 
 function setupUnityFrame(frame, folder, useUnityWebExtension = false) {
@@ -72,6 +73,8 @@ function instantiateEmscripten(frame, folder, file) {
     canvas.addEventListener("wheel", () => {
         canvas.style.pointerEvents = "none";
     });
+
+    canvas.onkeydown = (evt) => { if (evt.code == "KeyF") canvas.requestFullscreen() };
 
     frame.addEventListener("click", () => {
         canvas.style.pointerEvents = "all";

@@ -39,6 +39,35 @@
 
             <div id="projects" class="sub-container sc2">
                 <h1>Projects</h1>
+                <p class="disclaimer">
+                    <b>Note</b>: Click on a project's image to play in the browser (excluding the Veracity Logic project).
+                    <br><br>
+                    Press F to enter fullscreen once the game has loaded.
+                </p>
+
+                <!-- Wetlands project -->
+                <div class="project-container project-container-left">
+                    <div class="content-frame left pointer" id="wetlands-frame">
+                        <img class="contents" src="./wetlands/wetlands-img.png">
+                        <div class="overlay">
+                            <div class="spinner invisible"></div>
+                            <p class="overlay-text invisible">Click to load</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h2>Wetlands Project</h2>
+                        <p>
+                            New Zealand has beautiful flora and fauna; I wanted to capture this in a wetland restoration game.
+                        </p>
+                        <p>
+                            So far, I've only developed an algorithm to procedurally generate
+                            trees that grow in real time. That's still a fun exploration of applying linear algebra, but 
+                            my next feature goals include foliage & flowers, calculating growth based on light occlusion, 
+                            and avoiding intersection of branches.
+                        </p>
+                    </div>
+                </div>
+
                 <!-- Chronodrive project -->
                 <div class="project-container">
                     <div>
@@ -85,9 +114,6 @@
                             Some of the highlights have been learning more about 3D graphics & the OpenGL API, being able to apply
                             C++ to a decent-size project, and adding Emscripten to my toolkit for compiling to Web Assembly.
                         </p>
-                        <p>
-                            There's clearly a lot more I could do here, and I'm excited to keep working on this project!
-                        </p>
                     </div>
                 </div>
 
@@ -97,8 +123,8 @@
                         <h2>Terrain Generation</h2>
                         <p>
                             An exploration of (virtually) infinite terrain generation. This requires managing logical chunks of the terrain,
-                            creating Perlin noise for noise maps, and generating mesh data. I'd like to eventually add physics,
-                            structures (e.g. trees), and a level-of-detail system.
+                            creating Perlin noise for noise maps, and generating mesh data. In the future, I'd like to explore a level of detail system,
+                            and physics.
                         </p>
                         <p>
                             Also built using C++, OpenGL, and Emscripten, this project uses what I've learned from 'Little Game Engine'.
@@ -142,7 +168,7 @@
                     </div>
                 </div>
 
-                <!-- Space-invaders project -->
+                <!-- Space-invaders project
                 <div class="project-container">
                     <div>
                         <h2>Spacer Invaders Game Jam</h2>
@@ -166,7 +192,7 @@
                             <p class="overlay-text invisible">Click to load</p>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <div class="sub-container sc1 central">
