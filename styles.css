@@ -142,16 +142,16 @@ body {
 
 h1 {
     text-align: center;
-    font-size: 3em;
+    font-size: 4vw;
 }
 
 h2 {
-    font-size: 1.9em;
+    font-size: 2.5vw;
     text-align: left;
 }
 
 p {
-    font-size: 1.3em;
+    font-size: 1.5vw;
 }
 
 .sc1 a {
@@ -231,7 +231,7 @@ iframe.contents {
     position: absolute;
     color: white;
     font-weight: bold;
-    font-size: 3em;
+    font-size: 4vw;
     animation: fade-in 0.3s ease-in-out;
     -webkit-text-stroke: 2px black;
 }
